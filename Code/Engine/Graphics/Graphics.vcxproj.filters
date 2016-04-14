@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Mesh.d3d.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.gl.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsContext.cpp">
+      <Filter>Context</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL\Graphics.gl.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Direct3D\Graphics.d3d.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugMenu.cpp">
+      <Filter>DebugMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="Direct3D\DebugShapes.cpp">
+      <Filter>DebugShapes</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSprite.cpp">
+      <Filter>GameSprite</Filter>
+    </ClCompile>
+    <ClCompile Include="Materials.cpp">
+      <Filter>Materials</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Mesh.h">
+      <Filter>Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsContext.h">
+      <Filter>Context</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="s_vertex.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="sParameterToSet.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugMenu.h">
+      <Filter>DebugMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugShapes.h">
+      <Filter>DebugShapes</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSprite.h">
+      <Filter>GameSprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Materials.h">
+      <Filter>Materials</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Mesh">
+      <UniqueIdentifier>{3a649f55-0224-467a-8a86-1de1759e8048}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect">
+      <UniqueIdentifier>{5cd98548-605a-4753-9fde-64d730521631}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camera">
+      <UniqueIdentifier>{7986458e-2f51-48e7-b255-3bcd63837037}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Context">
+      <UniqueIdentifier>{4bd4ae9e-6225-40bf-92f2-bfdabca3c40b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{4d5e2499-3535-49ba-8140-5583d7fcf076}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Materials">
+      <UniqueIdentifier>{51614327-3d1f-4637-b247-52efac92e8d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DebugMenu">
+      <UniqueIdentifier>{665cd871-dbde-452a-9b31-a1f56ffdfab7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DebugShapes">
+      <UniqueIdentifier>{0a606064-3093-47c2-9719-2cf2ec27d3f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSprite">
+      <UniqueIdentifier>{f682660e-d58a-4881-b750-a1be90b32235}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Assets\Square.lua">
+      <Filter>Mesh</Filter>
+    </None>
+    <None Include="..\..\..\Assets\Triangle.lua">
+      <Filter>Mesh</Filter>
+    </None>
+    <None Include="..\..\..\Assets\Effects.lua">
+      <Filter>Effect</Filter>
+    </None>
+    <None Include="..\..\..\Assets\TransparentEffects.lua">
+      <Filter>Effect</Filter>
+    </None>
+  </ItemGroup>
+</Project>
