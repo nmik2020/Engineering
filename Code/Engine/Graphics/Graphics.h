@@ -57,7 +57,7 @@ namespace eae6320
 {
 	void  handleCollisions(float i_frameTime);
 	static bool onTheGround = false;
-	static float timeLeftInFrame;
+	 static float timeLeftInFrame;
 	namespace Graphics
 	{
 		bool Initialize(const HWND i_renderingWindow);

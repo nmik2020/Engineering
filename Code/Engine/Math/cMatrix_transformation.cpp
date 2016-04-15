@@ -112,3 +112,18 @@ eae6320::Math::cMatrix_transformation::cMatrix_transformation(
 {
 
 }
+
+eae6320::Math::cVector eae6320::Math::cMatrix_transformation::matrixMulVector(const cMatrix_transformation& i_mtx, const cVector& i_vec)
+{
+	float vec[4];
+
+	for (size_t i = 0; i < 4; i++)
+	{
+		vec[i] = (i_mtx.Get(i, 0) * i_vec.x) +
+			(i_mtx.Get(i, 1) * i_vec.y) +
+			(i_mtx.Get(i, 2) * i_vec.z) +
+			(i_mtx.Get(i, 3) * 1);
+	}
+
+	return cVector(vec[0], vec[1], vec[2]);
+}

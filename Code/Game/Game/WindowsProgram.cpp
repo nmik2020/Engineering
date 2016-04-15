@@ -486,7 +486,14 @@ void objectInit()
 		clientPlayerObject->camObject = cameraObject;
 		serverPlayerObject->camObject = new eae6320::Camera();
 
+		serverPlayerObject->camObject->position = serverPlayerObject->position;
+		serverPlayerObject->camObject->position.y += 80;
+		serverPlayerObject->camObject->position.z += 300;
+
+
 		clientPlayerObject->camObject->position.z = 100;
+
+
 		cameraObject->position.z = clientPlayerObject->camObject->position.z;
 	}
 	else 
@@ -1057,6 +1064,7 @@ bool UpdateEntities_vector()
 					if (eae6320::UserInput::IsKeyPressed('S'))
 					{
 						acceleration.z += 10.0f;
+
 					}
 				}
 				else {
@@ -1113,34 +1121,42 @@ bool UpdateEntities_vector()
 		const float unitsPerSecond = 300.0f;	// This is arbitrary
 		const float unitsToMove = unitsPerSecond * eae6320::Time::GetSecondsElapsedThisFrame();	// This makes the speed frame-rate-independent																				// Normalize the offset
 		//offset *= unitsToMove;
-		acceleration *= unitsToMove/10.0f;
+		acceleration *= unitsToMove/100.0f;
 		rotationOffset *= unitsToMove;
 		rotation = eae6320::Math::cQuaternion(rotationOffset.y, eae6320::Math::cVector(0.0f, 1.0f, 0.0f));
 
 	}
-	// The following line assumes there is some "entity" for the rectangle that the game code controls
-	// that encapsulates a mesh, an effect, and a position offset.
-	// You don't have to do it this way for your assignment!
-	// You just need a way tos update the position offset associated with the colorful rectangle.
 	
-	
-	//NIDAL.....WILL HAVE TO BE ADDED BACK
-	//cylinderObject->setOffsetPosition(cylinderObject->movmentOffset + offset);
-	//coneObject->setOffsetPosition(coneObject->movmentOffset + 20);
+
 	if (isServer) 
 	{
-		/*serverPlayerObject->camObject->updateRotation(rotation);
-		serverPlayerObject->camObject->updatePosition(acceleration);*/
+		/*serverPlayerObject->camObject->updatePosition(acceleration);*/
+		//serverPlayerObject->setOffsetPosition(acceleration);
 
 		serverPlayerObject->camObject->updateRotation(rotation);
-		//Needed the line below for networking
-		serverPlayerObject->camObject->updatePosition(acceleration);
 
-		serverPlayerObject->setOffsetPosition(acceleration);
+
+		// Updating player's position
+		eae6320::Math::cVector oldPosition = serverPlayerObject->position;
+		acceleration.y = 0.0f;
+		eae6320::Math::cMatrix_transformation i_localToWorldTransformPlayer = eae6320::Math::cMatrix_transformation(
+			serverPlayerObject->camObject->rotation , serverPlayerObject->position);
+		eae6320::Math::cVector newPosition = eae6320::Math::cMatrix_transformation::matrixMulVector(i_localToWorldTransformPlayer, -acceleration);
+		serverPlayerObject->position.z = newPosition.z;
+
+		//float difference = serverPlayerObject->position.z - serverPlayerObject->camObject->position.z;
+			//serverPlayerObject->camObject->updatePosition(acceleration);
+			// Updating third person camera according to the player's position
+		eae6320::Math::cMatrix_transformation i_localToWorldTransformCamera = eae6320::Math::cMatrix_transformation(
+				serverPlayerObject->camObject->rotation, serverPlayerObject->camObject->position);
+		eae6320::Math::cVector camOffset = serverPlayerObject->position - serverPlayerObject->camObject->position ;
+		eae6320::Math::cVector val = eae6320::Math::cMatrix_transformation::matrixMulVector(i_localToWorldTransformCamera, -camOffset);
+		serverPlayerObject->camObject->position += (val - serverPlayerObject->camObject->position) * eae6320::Time::GetSecondsElapsedThisFrame() * 1.f;
+		//serverPlayerObject->camObject->position.y += 3;
+		//serverPlayerObject->camObject->position.z += 12;
+
 		if(connectionEstablished)
 			clientPlayerObject->camObject->updateRotation(clientPlayerObject->camObject->rotation);
-
-
 	}
 	else
 	{

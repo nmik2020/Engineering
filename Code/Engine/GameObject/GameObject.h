@@ -4,6 +4,7 @@
 //#include "../Graphics/Effect.h"
 #include "../Graphics/Mesh.h"
 #include "../Math/cVector.h"
+#include "../../Engine/Time/Time.h"
 #include "../Math/cMatrix_transformation.h"
 #include "../Math/cQuaternion.h"
 #include <gl/GLU.h>
@@ -25,14 +26,12 @@ namespace eae6320
 		material = new Materials();
 		camObject = new Camera();
 		flyCamObject = new Camera();
+		velocity = Math::cVector();
 
 		};
 
 		void setOffsetPosition(Math::cVector& offset)
-		{
-			offset = offset * 0.1;
-			position += offset;
-		}
+			;
 
 
 		~GameObject()
@@ -45,6 +44,7 @@ namespace eae6320
 		//current Position
 		 Camera *camObject;
 		 Camera *flyCamObject;
+		 Math::cVector velocity;
 
 		 //Effect *effect;
 		 Materials* material;
