@@ -30,8 +30,11 @@ namespace eae6320
 
 		void setOffsetPosition(Math::cVector& offset)
 		{
-		 position = offset;
+			offset = offset * 0.1;
+			position += offset;
 		}
+
+
 		~GameObject()
 		{
 			delete mesh;

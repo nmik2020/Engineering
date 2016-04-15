@@ -477,7 +477,7 @@ void objectInit()
 	objects.push_back(metalBraceObject);
 	objects.push_back(floorObject);
 	//objects.push_back(clientPlayerObject);
-	//objects.push_back(serverPlayerObject);
+	objects.push_back(serverPlayerObject);
 
 
 	if (!isServer)
@@ -496,8 +496,8 @@ void objectInit()
 		serverPlayerObject->camObject = cameraObject;
 
 		clientPlayerObject->camObject->position.z = 100;
-
-		serverPlayerObject->camObject->position.z = -100;
+		//Changing value from -100 to -30 to implement 3rd person camera
+		serverPlayerObject->camObject->position.z = -30;
 		cameraObject->position.z = serverPlayerObject->camObject->position.z;
 
 		eae6320::Math::cQuaternion rotation = eae6320::Math::cQuaternion(600, eae6320::Math::cVector(0.0f, 1.0f, 0.0f));
@@ -1129,8 +1129,14 @@ bool UpdateEntities_vector()
 	//coneObject->setOffsetPosition(coneObject->movmentOffset + 20);
 	if (isServer) 
 	{
+		/*serverPlayerObject->camObject->updateRotation(rotation);
+		serverPlayerObject->camObject->updatePosition(acceleration);*/
+
 		serverPlayerObject->camObject->updateRotation(rotation);
+		//Needed the line below for networking
 		serverPlayerObject->camObject->updatePosition(acceleration);
+
+		serverPlayerObject->setOffsetPosition(acceleration);
 		if(connectionEstablished)
 			clientPlayerObject->camObject->updateRotation(clientPlayerObject->camObject->rotation);
 
@@ -1246,11 +1252,11 @@ bool WaitForMainWindowToClose( int& o_exitCode )
 				eae6320::Graphics::Submit(objects);
 			}
 
-			//if(isServer)
-			//	networkMessage = "Server Started :";
-			//else
-			//		networkMessage = "Client Started :";
-			//
+			if(isServer)
+				networkMessage = "Server Started :";
+			else
+					networkMessage = "Client Started :";
+			
 			if (connectionEstablished) {
 				if(isServer)
 					networkMessage = "Connection Established with Client";
