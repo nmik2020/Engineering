@@ -113,17 +113,12 @@ eae6320::Math::cMatrix_transformation::cMatrix_transformation(
 
 }
 
-eae6320::Math::cVector eae6320::Math::cMatrix_transformation::matrixMulVector(const cMatrix_transformation& i_mtx, const cVector& i_vec)
+eae6320::Math::cVector eae6320::Math::cMatrix_transformation::matrixMulVector(const cMatrix_transformation& iRhs, const cVector& iLhs)
 {
-	float vec[4];
+	float t0 = iLhs.x * iRhs.m_00 + iLhs.y * iRhs.m_10 + iLhs.z * iRhs.m_20 + 1 * iRhs.m_30;
+	float t1 = iLhs.x * iRhs.m_01 + iLhs.y * iRhs.m_11 + iLhs.z * iRhs.m_21 + 1 * iRhs.m_31;
+	float t2 = iLhs.x * iRhs.m_02 + iLhs.y * iRhs.m_12 + iLhs.z * iRhs.m_22 + 1 * iRhs.m_32;
+	float t3 = iLhs.x * iRhs.m_03 + iLhs.y * iRhs.m_13 + iLhs.z * iRhs.m_23 + 1 * iRhs.m_33;
+	return eae6320::Math::cVector(t0, t1, t2);
 
-	for (size_t i = 0; i < 4; i++)
-	{
-		vec[i] = (i_mtx.Get(i, 0) * i_vec.x) +
-			(i_mtx.Get(i, 1) * i_vec.y) +
-			(i_mtx.Get(i, 2) * i_vec.z) +
-			(i_mtx.Get(i, 3) * 1);
-	}
-
-	return cVector(vec[0], vec[1], vec[2]);
 }

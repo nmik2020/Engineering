@@ -130,26 +130,26 @@ void eae6320::Graphics::updateWorld()
 	//	gameObjects[0]->camObject->acceleration.y = 0;
 	//	gameObjects[0]->camObject->velocity.y = 0;
 	//}
-	//Add friction
-	/*gameObjects[0]->camObject->acceleration -= eae6320::Math::cVector
-		(gameObjects[0]->camObject->velocity.x * 4.0f, gameObjects[0]->camObject->velocity.y * 0.2f,
-			gameObjects[0]->camObject->velocity.z * 4.0f);*/
-	//Velocity = u + at
+	////Add friction
+	//gameObjects[0]->camObject->acceleration -= eae6320::Math::cVector
+	//	(gameObjects[0]->camObject->velocity.x * 4.0f, gameObjects[0]->camObject->velocity.y * 0.2f,
+	//		gameObjects[0]->camObject->velocity.z * 4.0f);
+	////Velocity = u + at
 	//gameObjects[0]->camObject->velocity += gameObjects[0]->camObject->acceleration * eae6320::timeLeftInFrame;
-	
-	/*if (!gameObjects[0]->camObject->isFlying)
-		gameObjects[0]->camObject->position += gameObjects[0]->camObject->velocity
-		+ gameObjects[0]->camObject->acceleration*eae6320::timeLeftInFrame*eae6320::timeLeftInFrame*0.5f;
-	else {
-		gameObjects[0]->camObject->position.y = 100.0f;
+	//
+	//if (!gameObjects[0]->camObject->isFlying)
+	//	gameObjects[0]->camObject->position += gameObjects[0]->camObject->velocity
+	//	+ gameObjects[0]->camObject->acceleration*eae6320::timeLeftInFrame*eae6320::timeLeftInFrame*0.5f;
+	//else {
+	//	gameObjects[0]->camObject->position.y = 100.0f;
 
-		gameObjects[0]->camObject->position.x += gameObjects[0]->camObject->velocity.x
-			+ gameObjects[0]->camObject->acceleration.x*eae6320::timeLeftInFrame*eae6320::timeLeftInFrame*0.5f;
-		gameObjects[0]->camObject->position.z += gameObjects[0]->camObject->velocity.z
-			+ gameObjects[0]->camObject->acceleration.z*eae6320::timeLeftInFrame*eae6320::timeLeftInFrame*0.5f;
-	}*/
-	
-	
+	//	gameObjects[0]->camObject->position.x += gameObjects[0]->camObject->velocity.x
+	//		+ gameObjects[0]->camObject->acceleration.x*eae6320::timeLeftInFrame*eae6320::timeLeftInFrame*0.5f;
+	//	gameObjects[0]->camObject->position.z += gameObjects[0]->camObject->velocity.z
+	//		+ gameObjects[0]->camObject->acceleration.z*eae6320::timeLeftInFrame*eae6320::timeLeftInFrame*0.5f;
+	//}
+	//
+	//
 	//eae6320::Time::OnNewFrame();
 }
 
@@ -272,7 +272,7 @@ void eae6320::Graphics::Render()
 						gameObjects[i]->positionOffsetMatrix, 
 
 						Math::cMatrix_transformation::CreateWorldToViewTransform(
-							gameObjects[i]->rotationOffset, gameObjects[i]->position), 
+							gameObjects[i]->rotation, gameObjects[i]->position),
 						gameObjects[i]->camObject);
 
 					gameObjects[i]->material->effect->setUniform(context,
