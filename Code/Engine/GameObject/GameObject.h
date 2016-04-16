@@ -51,7 +51,7 @@ namespace eae6320
 		 Mesh *mesh;
 		 Math::cMatrix_transformation positionOffsetMatrix ;
 		 Math::cVector position;
-		 Math::cQuaternion rotationOffset;
+		 Math::cQuaternion rotation;
 
 	};
 }
