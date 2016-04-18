@@ -78,6 +78,8 @@
     <ClInclude Include="Materials.h">
       <Filter>Materials</Filter>
     </ClInclude>
+    <ClInclude Include="Octree.h" />
+    <ClInclude Include="AABB.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Mesh">

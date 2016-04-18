@@ -49,6 +49,7 @@ return
 				"CylinderWireFrame2.lua",
 				"CollisionLayer.lua",
 				"ServerPlayerObject.lua",
+				"sphere2.lua",
 			},
 		},
 	},

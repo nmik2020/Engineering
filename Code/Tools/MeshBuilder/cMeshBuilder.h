@@ -16,6 +16,7 @@
 #include "../../Engine/UserOutput/UserOutput.h"
 #include <cassert>
 #include <iostream>
+#include "../../Engine/Graphics/Triangle.h"
 // Class Declaration
 //==================
 
@@ -26,7 +27,7 @@ namespace eae6320
 
 		struct s_vertex
 		{
-		private:
+		public:
 			float x, y, z;
 			float u, v;
 			float nx, ny, nz; // Normals
@@ -72,6 +73,7 @@ namespace eae6320
 
 		// Build
 		//------
+		std::vector<Triangle> triangleList;
 		s_vertex* vertexData;
 		uint32_t vertexCount;
 		uint32_t indexCount;
@@ -91,6 +93,7 @@ namespace eae6320
 		bool LoadTableValues_indices(lua_State& io_luaState);
 
 		void writeToBinaryFile();
+		void fillTriangles();
 	};
 }
 

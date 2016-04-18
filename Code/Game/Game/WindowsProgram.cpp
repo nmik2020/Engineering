@@ -498,8 +498,8 @@ void objectInit()
 
 		clientPlayerObject->camObject->position.z = 100;
 		//Changing value from -100 to -30 to implement 3rd person camera
-		serverPlayerObject->camObject->position.z = 0;
-		cameraObject->position.z = serverPlayerObject->camObject->position.z;
+		//serverPlayerObject->camObject->position.z = 0;
+		//cameraObject->position.z = serverPlayerObject->camObject->position.z;
 
 		//eae6320::Math::cQuaternion rotation = eae6320::Math::cQuaternion(600, eae6320::Math::cVector(0.0f, 1.0f, 0.0f));
 		//serverPlayerObject->camObject->updateRotation(rotation);
@@ -1112,31 +1112,31 @@ bool UpdateEntities_vector()
 				}*/
 			}
 		}
-		if (rotationOffset.x > 360.0f)
-			rotationOffset.x -= 360.0f;
+		//if (rotationOffset.x > 360.0f)
+		//	rotationOffset.x -= 360.0f;
 
-		if (rotationOffset.x < -360.0f)
-			rotationOffset.x += 360.0f;
+		//if (rotationOffset.x < -360.0f)
+		//	rotationOffset.x += 360.0f;
 
-		if (rotationOffset.y > 360.0f)
-			rotationOffset.y -= 360.0f;
+		//if (rotationOffset.y > 360.0f)
+		//	rotationOffset.y -= 360.0f;
 
-		if (rotationOffset.y < -360.0f)
-			rotationOffset.y += 360.0f;
+		//if (rotationOffset.y < -360.0f)
+		//	rotationOffset.y += 360.0f;
 
 
-		if (rotationOffset.z > 360.0f)
-			rotationOffset.z -= 360.0f;
+		//if (rotationOffset.z > 360.0f)
+		//	rotationOffset.z -= 360.0f;
 
-		if (rotationOffset.z < -360.0f)
-			rotationOffset.z += 360.0f;
+		//if (rotationOffset.z < -360.0f)
+		//	rotationOffset.z += 360.0f;
 
 		// Get the speed
 		const float unitsPerSecond = 300.0f;	// This is arbitrary
 		const float unitsToMove = unitsPerSecond * eae6320::Time::GetSecondsElapsedThisFrame();	// This makes the speed frame-rate-independent																				// Normalize the offset
 		//offset *= unitsToMove;
-		acceleration *= unitsToMove/10.0f;
-		rotationOffset *= unitsToMove/100.0f;
+		acceleration   *= unitsToMove*0.1f;
+		rotationOffset *= unitsToMove*0.01f;
 
 	}
 	
@@ -1144,7 +1144,6 @@ bool UpdateEntities_vector()
 	if (isServer) 
 	{
 
-		eae6320::Math::cVector oldPosition = serverPlayerObject->position;
 
 		serverPlayerObject->rotation = serverPlayerObject->rotation * eae6320::Math::cQuaternion(rotationOffset.x, eae6320::Math::cVector(1.0f, 0.0f, 0.0f)) ;
 		serverPlayerObject->rotation = serverPlayerObject->rotation * eae6320::Math::cQuaternion(rotationOffset.y, eae6320::Math::cVector(0.0f, 1.0f, 0.0f)) ;
@@ -1153,35 +1152,19 @@ bool UpdateEntities_vector()
 		//serverPlayerObject->rotation.Normalize();
 
 		eae6320::Math::cMatrix_transformation matrix = eae6320::Math::cMatrix_transformation(serverPlayerObject->rotation, serverPlayerObject->position);
-		eae6320::Math::cVector translationVector = (eae6320::Math::cMatrix_transformation::matrixMulVector(matrix, acceleration));
 
-		eae6320::Math::cVector front = serverPlayerObject->camObject->Front();
-		//serverPlayerObject->position += eae6320::Math::Dot(front, translationVector)*0.01f;
+		serverPlayerObject->position = (eae6320::Math::cMatrix_transformation::matrixMulVector(matrix, acceleration));
 
-		/*serverPlayerObject->position += eae6320::Math::operator*(acceleration.x, front);
-		serverPlayerObject->position += eae6320::Math::operator*(acceleration.y, front);
-		serverPlayerObject->position += eae6320::Math::operator*(acceleration.z, front);*/
-
-	
-
-		eae6320::Math::cVector up = serverPlayerObject->camObject->Up();
-		//serverPlayerObject->position += eae6320::Math::Dot(up, (eae6320::Math::cMatrix_transformation::matrixMulVector(matrix, acceleration)))*0.01f;
-
-		eae6320::Math::cVector right= serverPlayerObject->camObject->Right();
-		//serverPlayerObject->position += eae6320::Math::Dot(right, (eae6320::Math::cMatrix_transformation::matrixMulVector(matrix, acceleration)))*0.01f;
-
-		
 
 		float timeElapsed = eae6320::Time::GetSecondsElapsedThisFrame();
-		eae6320::Math::cVector cameraOffset = eae6320::Math::cVector(0, -10, 20);
+
+		eae6320::Math::cVector cameraOffset = eae6320::Math::cVector(0, 0, 40);
 		eae6320::Math::cVector val = (eae6320::Math::cMatrix_transformation::matrixMulVector(matrix, cameraOffset));
 		serverPlayerObject->camObject->position += (val - serverPlayerObject->camObject->position) * timeElapsed * 2.0f;
+
 		serverPlayerObject->camObject->rotation = serverPlayerObject->rotation * eae6320::Math::cQuaternion(rotationOffset.y, eae6320::Math::cVector(0.0f, 1.0f, 0.0f));
 
-		serverPlayerObject->position += (right * acceleration.x)* timeElapsed * 20.0f;
-		serverPlayerObject->position += (up    * acceleration.y)*timeElapsed * 20.0f;
-		serverPlayerObject->position += (front * acceleration.z)* timeElapsed * 20.0f;
-
+		serverPlayerObject->camObject->updateRotation(rotation);
 		if(connectionEstablished)
 			clientPlayerObject->camObject->updateRotation(clientPlayerObject->camObject->rotation);
 	}

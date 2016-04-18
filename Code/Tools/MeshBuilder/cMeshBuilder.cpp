@@ -5,12 +5,75 @@
 
 #include <fstream>
 
+#include "../../Engine/Graphics/AABB.h"
+#include "../../Engine/Graphics/Octree.h"
 
 // Interface
 //==========
 
 // Build
 //------
+
+void buildOctree(int stopDepth, eae6320::TAABB& boundingBox, std::vector<eae6320::Triangle> &octantTriangleList)
+{
+	if (stopDepth < 0)
+		return;
+	//These are the 8 subdivided boxes, which will then be used to check for intersections with each primitive(triangle) in the whole mesh
+	eae6320::TAABB boxes[8];
+	boundingBox.splitBoundingBoxes(boxes);
+
+	eae6320::Octree* currentNode = new eae6320::Octree();
+	currentNode->m_bounds = boundingBox;
+	currentNode->m_objects.insert(currentNode->m_objects.begin(), boxes, boxes + 8); // Inserting all elements of array to the vector of objects in Octree node
+	
+	std::vector<eae6320::Triangle> trianglesInEachOctant[8];
+
+	//For each triangle check intersection with boxes
+	for (int i = 0; i < octantTriangleList.size(); i++)
+	{
+		eae6320::Triangle &currentTriangleInOctant = octantTriangleList.at(i);
+		for (int boxId = 0; boxId < 8; boxId++)
+		{
+			//Do Triangle Box intersection
+
+			if (true)
+			{
+				trianglesInEachOctant[i].push_back(currentTriangleInOctant);
+			}
+		}
+	}
+
+	//Now each octant would have a certain number of triangles. We have to further divide each octant
+	//to get the leaf octant with certain triangles
+
+	for (int i = 0; i < 8; i++)
+	{
+		size_t size = trianglesInEachOctant[i].size();
+
+		if (size)
+		{
+			buildOctree(stopDepth - 1, boxes[i], trianglesInEachOctant[i]);
+		}
+	}
+}
+
+//This will take each vertex of the mesh and fill it in as triangles
+void eae6320::cMeshBuilder::fillTriangles()
+{
+	for (int i = 0; i < indexCount; i += 3)
+	{
+		int index = indexData[i];
+		int index1 = indexData[i + 1];
+		int index2 = indexData[i + 2];
+		eae6320::Vertex vertexA =  eae6320::Math::cVector(vertexData[index].x, vertexData[index].y, vertexData[index].z);
+		eae6320::Vertex vertexB =  eae6320::Math::cVector(vertexData[index1].x, vertexData[index1].y, vertexData[index1].z);
+		eae6320::Vertex vertexC =  eae6320::Math::cVector(vertexData[index2].x, vertexData[index2].y, vertexData[index2].z);
+
+		Triangle newTriangle = Triangle(vertexA, vertexB, vertexC);
+		triangleList.push_back(newTriangle);
+
+	}
+}
 
 bool eae6320::cMeshBuilder::Build( const std::vector<std::string>& )
 {

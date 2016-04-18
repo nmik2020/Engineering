@@ -170,6 +170,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AABB.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DebugMenu.h" />
     <ClInclude Include="DebugShapes.h" />
@@ -180,6 +181,7 @@
     <ClInclude Include="Includes.h" />
     <ClInclude Include="Materials.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Octree.h" />
     <ClInclude Include="sParameterToSet.h" />
     <ClInclude Include="s_vertex.h" />
   </ItemGroup>
